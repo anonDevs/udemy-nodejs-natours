@@ -1,8 +1,13 @@
 //IMPORT APP CONFIG
+const dotenv = require('dotenv');
+dotenv.config({ path: `${__dirname}/config.env` });
+
 const app = require('./app');
 
+//console.log(process.env);
+
 //START THE SERVER
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log('App running on port 3000');
+  console.log(`App running on port ${port}`);
 });
