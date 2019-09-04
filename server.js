@@ -1,10 +1,16 @@
 //IMPORT APP CONFIG
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-dotenv.config({ path: `${__dirname}/config.env` });
-
 const app = require('./app');
 
-//console.log(process.env);
+dotenv.config({ path: `${__dirname}/config.env` });
+
+//Connect DB
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+mongoose.connect(DB, { useNewUrlParser: true });
 
 //START THE SERVER
 const port = process.env.PORT || 3000;
