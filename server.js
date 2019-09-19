@@ -1,16 +1,24 @@
 //IMPORT APP CONFIG
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const app = require('./app');
-
-dotenv.config({ path: `${__dirname}/config.env` });
 
 //Connect DB
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
-mongoose.connect(DB, { useNewUrlParser: true });
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => {
+    console.log('connection to DB successful');
+  })
+  .catch(err => {
+    console.log('Error: ', err);
+  });
 
 //START THE SERVER
 const port = process.env.PORT || 3000;
